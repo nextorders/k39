@@ -1,0 +1,29 @@
+{
+  "name": "@k39/database",
+  "type": "module",
+  "version": "0.0.0",
+  "private": true,
+  "exports": {
+    ".": "./src/index.ts"
+  },
+  "scripts": {
+    "db:generate": "drizzle-kit generate",
+    "db:migrate": "drizzle-kit migrate",
+    "db:push": "drizzle-kit push",
+    "db:studio": "drizzle-kit studio",
+    "clean:modules": "rm -rf node_modules",
+    "typecheck": "tsc --noEmit"
+  },
+  "dependencies": {
+    "drizzle-cuid2": "2.1.0",
+    "drizzle-orm": "0.44.7",
+    "pg": "8.16.3"
+  },
+  "devDependencies": {
+    "@types/node": "catalog:types",
+    "@types/pg": "8.15.6",
+    "dotenv": "catalog:dev",
+    "drizzle-kit": "0.31.6",
+    "typescript": "catalog:dev"
+  }
+}

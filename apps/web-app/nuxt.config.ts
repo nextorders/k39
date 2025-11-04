@@ -1,0 +1,93 @@
+export default defineNuxtConfig({
+  devServer: {
+    port: 3501,
+    host: 'app.local',
+    https: {
+      key: '../../.cert/localhost-key.pem',
+      cert: '../../.cert/localhost.pem',
+    },
+  },
+  site: {
+    url: 'https://k39.info',
+    name: 'k39',
+  },
+  css: ['~/assets/css/styles.css'],
+  i18n: {
+    strategy: 'prefix_except_default',
+    defaultLocale: 'ru',
+    detectBrowserLanguage: {
+      useCookie: true,
+      alwaysRedirect: true,
+    },
+    locales: [
+      { code: 'ru', language: 'ru-RU', name: 'Русский', file: 'ru-RU.json' },
+    ],
+  },
+  ui: {
+    colorMode: true,
+    fonts: true,
+  },
+  fonts: {
+    provider: 'google',
+    families: [
+      {
+        name: 'Lora',
+        provider: 'google',
+      },
+      {
+        name: 'Noto Sans',
+        provider: 'google',
+      },
+    ],
+  },
+  colorMode: {
+    storageKey: 'color-mode',
+  },
+  icon: {
+    clientBundle: {
+      scan: {
+        globInclude: ['app/**/*.{vue,ts}'],
+        globExclude: ['node_modules', 'dist', 'build', 'coverage', 'test', 'tests', '.*'],
+      },
+    },
+  },
+  runtimeConfig: {
+    oauth: {
+      twitch: {
+        clientId: '',
+        clientSecret: '',
+      },
+      yandex: {
+        clientId: '',
+        clientSecret: '',
+      },
+      vk: {
+        clientId: '',
+        clientSecret: '',
+      },
+      github: {
+        clientId: '',
+        clientSecret: '',
+      },
+    },
+  },
+  modules: [
+    'nuxt-auth-utils',
+    '@nuxtjs/seo',
+    '@nuxt/ui',
+    '@nuxtjs/i18n',
+    '@nuxt/image',
+    '@vueuse/nuxt',
+    '@pinia/nuxt',
+  ],
+  routeRules: {
+    '/api/**': { cors: true },
+  },
+  pinia: {
+    storesDirs: ['./app/stores/**'],
+  },
+  experimental: {
+    typedPages: true,
+  },
+  compatibilityDate: '2025-10-31',
+})
