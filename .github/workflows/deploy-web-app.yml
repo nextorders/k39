@@ -1,4 +1,4 @@
-name: Deploy WebApp
+name: Deploy Web App
 
 on:
   workflow_run:
@@ -13,8 +13,8 @@ jobs:
       fail-fast: false
       matrix:
         include:
-          - url: "https://k39.info"
-            environment: "Production WebApp"
+          - url: "https://k39.online"
+            environment: "Production Web App"
             deployment: "web-app"
     runs-on: ubuntu-latest
     permissions:
