@@ -8,7 +8,7 @@ export default defineNuxtConfig({
     },
   },
   site: {
-    url: 'https://k39.info',
+    url: 'https://k39.online',
     name: 'K39',
   },
   css: ['~/assets/css/styles.css'],
