@@ -1,12 +1,12 @@
 {
-  "name": "@nextorders/k39-monorepo",
+  "name": "@k39space/k39-monorepo",
   "version": "0.0.0",
   "private": true,
   "packageManager": "pnpm@10.20.0",
   "license": "MIT",
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/nextorders/k39.git"
+    "url": "git+https://github.com/k39space/k39.git"
   },
   "engines": {
     "node": ">=24.11.0",
