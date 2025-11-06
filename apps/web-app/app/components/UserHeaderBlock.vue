@@ -1,7 +1,7 @@
 <template>
   <UButton
     v-if="!loggedIn"
-    :to="`/sign-in?redirectTo=${redirectTo}`"
+    :to="`/sign-in?redirectTo=${encodeURIComponent(redirectTo)}`"
     size="lg"
     label="Войти"
   />

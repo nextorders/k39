@@ -12,7 +12,7 @@ export function tryActionThatRequiresLogin() {
     duration: 4000,
     onClick: () => {
       toast.remove(id)
-      navigateTo(`/sign-in?redirectTo=${route.path}`)
+      navigateTo(`/sign-in?redirectTo=${encodeURIComponent(route.path)}`)
     },
   })
 }

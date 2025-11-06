@@ -38,7 +38,7 @@
             <UButton
               v-for="provider in providers"
               :key="provider.name"
-              :to="`/api/auth/provider?provider=${provider.name}&redirectTo=${redirectTo}`"
+              :to="`/api/auth/provider?provider=${provider.name}&redirectTo=${encodeURIComponent(redirectTo)}`"
               :icon="provider.icon"
               :label="provider.label"
               size="xl"
