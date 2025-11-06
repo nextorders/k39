@@ -11,9 +11,9 @@
       </div>
 
       <div class="absolute bottom-4 left-4 right-4">
-        <div class="py-3 pl-4 pr-8 w-fit bg-default rounded-md">
+        <div class="py-4 px-6 max-w-lg bg-default rounded-md">
           <div class="flex flex-col gap-2">
-            <h3 class="text-lg/5 font-semibold">
+            <h3 class="text-lg/6 font-semibold">
               &quot;Такой город, как Кенигсберг на Прегеле, можно признать подходящим
               местом для расширения знания и человека, и света. Здесь и без путешествия можно
               приобрести такое знание.&quot;
@@ -30,7 +30,7 @@
     <div class="my-4 flex flex-col justify-between items-center">
       <div class="flex grow flex-col justify-center items-center">
         <UContainer class="md:min-w-sm">
-          <h1 class="mb-10 text-2xl font-semibold text-center">
+          <h1 class="mb-10 text-2xl/6 font-bold text-center">
             Мы вас заждались!
           </h1>
 
@@ -38,7 +38,7 @@
             <UButton
               v-for="provider in providers"
               :key="provider.name"
-              :to="`/api/auth/${provider.name}`"
+              :to="`/api/auth/provider?provider=${provider.name}&redirectTo=${encodeURIComponent(redirectTo)}`"
               :icon="provider.icon"
               :label="provider.label"
               size="xl"
@@ -65,6 +65,9 @@ definePageMeta({
   layout: 'empty',
   middleware: ['02-guest-only'],
 })
+
+const route = useRoute()
+const redirectTo = computed(() => route.query.redirectTo as string ?? '/')
 
 useHead({
   title: 'Войти как пользователь',

@@ -23,7 +23,6 @@
 
       <div class="flex items-center justify-end lg:flex-1 gap-2.5">
         <div class="hidden lg:flex items-center justify-end lg:flex-1 gap-1.5">
-          <ColorModeToggle />
           <GithubButton />
         </div>
 

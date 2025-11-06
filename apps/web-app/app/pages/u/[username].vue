@@ -1,26 +1,8 @@
 <template>
   <UContainer>
     <div class="my-4 lg:py-6 flex flex-col gap-4">
-      <div class="flex flex-row gap-2 justify-between">
-        <div class="flex flex-row gap-4">
-          <img :src="user?.avatarUrl ?? undefined" class="size-28 rounded-full">
-
-          <div class="flex flex-col gap-2.5 justify-center">
-            <h1 class="text-3xl/6 font-bold">
-              {{ user?.name }}
-            </h1>
-
-            <div>
-              <UButton
-                icon="i-lucide-user-plus"
-                size="lg"
-                color="neutral"
-                variant="soft"
-                label="Подписаться"
-              />
-            </div>
-          </div>
-        </div>
+      <div class="flex flex-col lg:flex-row gap-2 justify-between">
+        <UserAvatarBlock v-if="user" :user="user" />
 
         <div class="flex flex-row gap-6">
           <UserFollowers

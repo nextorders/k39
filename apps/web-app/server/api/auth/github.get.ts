@@ -45,7 +45,10 @@ export default defineOAuthGitHubEventHandler({
         avatarUrl: userInDB.avatarUrl,
       },
     })
-    return sendRedirect(event, '/')
+
+    // use redirectTo query param to redirect to the page the user was on before signing in
+    const redirectTo = getCookie(event, 'redirectTo')
+    return sendRedirect(event, redirectTo ?? '/')
   },
   onError(event, error) {
     logger.error('GitHub OAuth error:', error)

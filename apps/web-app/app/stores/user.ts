@@ -4,6 +4,9 @@ export const useUserStore = defineStore('user', () => {
   const avatarUrl = ref<string | undefined>(undefined)
   const username = ref<string | undefined>(undefined)
 
+  const ready = ref(false)
+  const loggedIn = computed(() => !!id.value)
+
   const { idle } = useIdle(30_000) // 30 sec
 
   async function update() {
@@ -26,6 +29,8 @@ export const useUserStore = defineStore('user', () => {
           // Not found
         }
       }
+    } finally {
+      ready.value = true
     }
   }
 
@@ -55,6 +60,9 @@ export const useUserStore = defineStore('user', () => {
     onlineAt,
     avatarUrl,
     username,
+
+    ready,
+    loggedIn,
 
     update,
     updateOnline,

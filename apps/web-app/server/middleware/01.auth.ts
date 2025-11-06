@@ -6,10 +6,12 @@ const logger = useLogger('middleware:auth')
 
 const routesWithoutAuth = [
   '/api/health',
+  '/api/auth/provider',
   '/api/auth/github',
   '/api/auth/twitch',
   '/api/auth/vk',
   '/api/auth/yandex',
+  '/api/user/username',
 ]
 
 /**

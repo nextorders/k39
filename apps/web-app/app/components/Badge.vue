@@ -22,7 +22,7 @@
 <script setup lang="ts">
 type BadgeType = 'expert_of_region' | 'author' | 'likes_collector'
 
-const { type } = defineProps<{ type: BadgeType, level: number }>()
+const { type } = defineProps<{ type: BadgeType, level?: number }>()
 
 const badge = computed(() => getBadgeByType(type))
 
