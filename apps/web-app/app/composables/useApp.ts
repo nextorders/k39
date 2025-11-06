@@ -9,7 +9,7 @@ function _useApp() {
     active: route.path.startsWith('/muza'),
   }, {
     label: 'Пример пользователя',
-    to: '/u/hmbanan666',
+    to: '/u/c2z0rqydtcgirpbmri713izd',
     active: route.path.startsWith('/u'),
   }])
 
