@@ -4,6 +4,13 @@ import { createAvatar } from '@nextorders/avatar'
 export default defineCachedEventHandler(async (event) => {
   try {
     const seed = getRouterParam(event, 'seed')
+    if (!seed) {
+      throw createError({
+        statusCode: 400,
+        statusMessage: 'Seed parameter is required',
+      })
+    }
+
     const query = getQuery(event)
 
     setHeader(event, 'Content-Type', 'image/svg+xml')
