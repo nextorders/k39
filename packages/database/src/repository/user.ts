@@ -1,24 +1,36 @@
-import type { UserDraft, User as UserType } from '../types'
+import type { UserDraft, User as UserType, UserWithData } from '../types'
 import { eq, sql } from 'drizzle-orm'
 import { useDatabase } from '../database'
 import { users } from '../tables'
 
 export class User {
-  static async find(id: string) {
+  static async find(id: string): Promise<UserWithData | undefined> {
     return useDatabase().query.users.findFirst({
       where: (users, { eq }) => eq(users.id, id),
+      with: {
+        badges: true,
+        badgeTasks: true,
+      },
     })
   }
 
-  static async findByEmail(email: string): Promise<UserType | undefined> {
+  static async findByEmail(email: string): Promise<UserWithData | undefined> {
     return useDatabase().query.users.findFirst({
       where: (users, { eq }) => eq(users.email, email),
+      with: {
+        badges: true,
+        badgeTasks: true,
+      },
     })
   }
 
-  static async findByUsername(username: string): Promise<UserType | undefined> {
+  static async findByUsername(username: string): Promise<UserWithData | undefined> {
     return useDatabase().query.users.findFirst({
       where: (users, { eq }) => eq(users.username, username),
+      with: {
+        badges: true,
+        badgeTasks: true,
+      },
     })
   }
 

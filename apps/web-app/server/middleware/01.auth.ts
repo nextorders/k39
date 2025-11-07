@@ -12,6 +12,7 @@ const routesWithoutAuth = [
   '/api/auth/vk',
   '/api/auth/yandex',
   '/api/user/username',
+  '/api/badge/list',
 ]
 
 /**

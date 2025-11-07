@@ -1,8 +1,12 @@
+import type { UserBadge, UserBadgeTask } from '@k39/database'
+
 export const useUserStore = defineStore('user', () => {
   const id = ref<string | undefined>(undefined)
   const onlineAt = ref<string | undefined>(undefined)
   const avatarUrl = ref<string | undefined>(undefined)
   const username = ref<string | undefined>(undefined)
+  const badges = ref<UserBadge[]>([])
+  const badgeTasks = ref<UserBadgeTask[]>([])
 
   const ready = ref(false)
   const loggedIn = computed(() => !!id.value)
@@ -20,6 +24,8 @@ export const useUserStore = defineStore('user', () => {
       onlineAt.value = data.onlineAt
       avatarUrl.value = data.avatarUrl ?? undefined
       username.value = data.username
+      badges.value = data.badges
+      badgeTasks.value = data.badgeTasks
     } catch (error) {
       if (error instanceof Error) {
         if (error.message.includes('401')) {
@@ -60,6 +66,8 @@ export const useUserStore = defineStore('user', () => {
     onlineAt,
     avatarUrl,
     username,
+    badges,
+    badgeTasks,
 
     ready,
     loggedIn,
