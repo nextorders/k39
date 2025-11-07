@@ -5,7 +5,7 @@
         <img :src="user?.avatarUrl ?? undefined" class="size-28 rounded-full">
       </RadialProgress>
 
-      <div class="absolute -bottom-2 left-0 right-0 flex flex-row justify-center items-center">
+      <div v-if="user.level" class="absolute -bottom-2 left-0 right-0 flex flex-row justify-center items-center">
         <div class="w-8 h-5 bg-default ring-2 ring-default rounded-full flex flex-col items-center justify-center">
           <p class="font-semibold">
             {{ user.level }}
