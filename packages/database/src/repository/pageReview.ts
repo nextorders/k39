@@ -18,7 +18,7 @@ export class PageReview {
     const result = await useDatabase().insert(pageReviews).values(data).returning()
 
     if (result.length === 0) {
-      throw new Error('Page creation failed: no data returned from DB')
+      throw new Error('Page review creation failed: no data returned from DB')
     }
 
     return result[0] as PageReviewType
