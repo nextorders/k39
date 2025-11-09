@@ -10,9 +10,9 @@ catalogs:
     '@iconify-json/circle-flags': ^1.2.10
     '@iconify-json/fluent': ^1.2.34
     '@iconify-json/fluent-emoji-flat': ^1.2.5
-    '@iconify-json/lucide': ^1.2.72
-    '@iconify-json/simple-icons': ^1.2.57
-    '@nuxt/devtools': ^3.0.1
+    '@iconify-json/lucide': ^1.2.73
+    '@iconify-json/simple-icons': ^1.2.58
+    '@nuxt/devtools': ^3.1.0
     '@nuxt/image': ^2.0.0
     '@nuxtjs/i18n': ^10.2.0
     '@nuxtjs/seo': ^3.2.2
@@ -40,14 +40,14 @@ catalogs:
     aws4fetch: ^1.0.20
     grammy: ^1.38.3
     ioredis: ^5.8.2
-    libphonenumber-js: ^1.12.25
+    libphonenumber-js: ^1.12.26
     pinia: ^3.0.4
     zod: ^4.1.12
   test:
-    '@vitest/browser-playwright': ^4.0.7
-    '@vitest/coverage-v8': ^4.0.7
+    '@vitest/browser-playwright': ^4.0.8
+    '@vitest/coverage-v8': ^4.0.8
     playwright: ^1.56.1
-    vitest: ^4.0.7
+    vitest: ^4.0.8
     vitest-browser-vue: ^2.0.1
   types:
     '@types/node': ^24.10.0
