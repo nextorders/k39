@@ -26,7 +26,7 @@ export type UserBadgeTaskStatus = 'active' | 'completed' | 'failed' | 'expired'
 export type Page = InferSelectModel<typeof tables.pages>
 export type PageDraft = InferInsertModel<typeof tables.pages>
 export type PageWithData = Page & {
-  reviews: PageReview[]
+  reviews: (PageReview & { user: User })[]
 }
 
 export type PageReview = InferSelectModel<typeof tables.pageReviews>

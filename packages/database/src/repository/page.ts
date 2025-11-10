@@ -8,7 +8,11 @@ export class Page {
     return useDatabase().query.pages.findFirst({
       where: (pages, { eq }) => eq(pages.id, id),
       with: {
-        reviews: true,
+        reviews: {
+          with: {
+            user: true,
+          },
+        },
       },
     })
   }
@@ -17,7 +21,11 @@ export class Page {
     return useDatabase().query.pages.findFirst({
       where: (pages, { eq }) => eq(pages.slug, slug),
       with: {
-        reviews: true,
+        reviews: {
+          with: {
+            user: true,
+          },
+        },
       },
     })
   }

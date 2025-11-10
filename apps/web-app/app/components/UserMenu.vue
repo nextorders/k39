@@ -48,6 +48,7 @@ const userMenuItems = computed<DropdownMenuItem[][]>(() => [
       icon: 'i-lucide-log-out',
       onSelect: async () => {
         await signOut()
+        userStore.signOut()
         await navigateTo('/')
       },
     },

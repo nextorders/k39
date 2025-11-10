@@ -1,6 +1,23 @@
 <template>
-  <UContainer class="max-w-5xl">
-    Тут пока пусто
+  <UContainer class="mt-4 max-w-5xl">
+    <div class="grid grid-cols-4 gap-6">
+      <div class="col-span-3">
+        <div v-if="page?.reviews.length" class="flex flex-col gap-2">
+          <PageReviewCard
+            v-for="review in page?.reviews"
+            :key="review.id"
+            :review="review"
+          />
+        </div>
+        <div v-else class="text-muted">
+          Отзывов пока нет
+        </div>
+      </div>
+
+      <div class="col-span-1">
+        <PageReviewRatingBlock />
+      </div>
+    </div>
   </UContainer>
 </template>
 
