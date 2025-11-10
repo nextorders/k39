@@ -1,11 +1,11 @@
 <template>
   <UContainer class="max-w-5xl">
-    Тут пока пусто
+    Адресов пока нет
   </UContainer>
 </template>
 
 <script setup lang="ts">
-const { params } = useRoute('pageSlug-reviews___ru')
+const { params } = useRoute('pageSlug-points___ru')
 
 const { data: page } = await useFetch(`/api/page/slug/${params.pageSlug}`)
 
@@ -21,13 +21,13 @@ useBreadcrumb().setItems([
     to: `/${page.value?.slug}`,
   },
   {
-    label: 'Отзывы',
-    icon: 'i-lucide-user-star',
+    label: 'Филиалы',
+    icon: 'i-lucide-map',
     class: 'text-dimmed font-normal',
   },
 ])
 
 useHead({
-  title: `Отзывы ${page.value?.title}`,
+  title: `Адреса ${page.value?.title}`,
 })
 </script>
