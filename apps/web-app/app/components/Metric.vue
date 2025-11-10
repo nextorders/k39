@@ -10,8 +10,10 @@
 const isProd = !import.meta.dev
 
 useHead({
-  script: [isProd && {
-    src: '/js/wthgiyojuv0xgxgrpn5wd6xz.min.js',
-  }],
+  script: isProd
+    ? [{
+        src: '/js/wthgiyojuv0xgxgrpn5wd6xz.min.js',
+      }]
+    : [],
 })
 </script>
