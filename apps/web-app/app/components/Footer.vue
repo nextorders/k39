@@ -36,7 +36,7 @@
 
   <UFooter class="mt-4 mb-8">
     <template #left>
-      <div class="flex flex-col gap-1 justify-center items-start text-muted">
+      <div class="flex flex-col gap-1 items-center lg:items-start text-muted">
         <p class="flex flex-row items-center gap-1">
           Создается с <UIcon name="fluent-emoji-flat:red-heart" class="size-5" /> и с <UIcon name="fluent-emoji-flat:fire" class="size-5" /> в глазах
         </p>

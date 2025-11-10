@@ -16,8 +16,8 @@ export default defineAppConfig({
     },
     modal: {
       slots: {
-        title: 'text-xl',
-        close: 'top-5 scale-110',
+        title: 'text-lg/5',
+        close: 'scale-110',
       },
     },
     input: {
