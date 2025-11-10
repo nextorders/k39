@@ -75,7 +75,7 @@
           icon="i-lucide-thumbs-down"
         />
         <p class="text-lg">
-          +4
+          {{ review.voteBalance }}
         </p>
         <UButton
           size="xl"
