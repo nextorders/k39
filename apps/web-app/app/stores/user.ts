@@ -61,6 +61,15 @@ export const useUserStore = defineStore('user', () => {
     }
   }
 
+  function signOut() {
+    id.value = undefined
+    onlineAt.value = undefined
+    avatarUrl.value = undefined
+    username.value = undefined
+    badges.value = []
+    badgeTasks.value = []
+  }
+
   return {
     id,
     onlineAt,
@@ -74,5 +83,6 @@ export const useUserStore = defineStore('user', () => {
 
     update,
     updateOnline,
+    signOut,
   }
 })
