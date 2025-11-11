@@ -16,13 +16,13 @@ export async function useCloseDatabase() {
   }
 }
 
-export async function useMigrateDatabase(migrationFolder: string) {
+export async function useMigrateDatabase() {
   if (!instance) {
     throw new Error('Database is not created')
   }
 
   await migrate(instance, {
-    migrationsFolder: resolve(migrationFolder),
+    migrationsFolder: resolve(__dirname, '../migrations'),
   })
 }
 

@@ -1,5 +1,4 @@
 import type { StartedPostgreSqlContainer } from '@testcontainers/postgresql'
-import { resolve } from 'node:path'
 import { PostgreSqlContainer } from '@testcontainers/postgresql'
 import { afterAll, beforeAll } from 'vitest'
 import { useCloseDatabase, useCreateDatabase, useMigrateDatabase } from '../src/database'
@@ -17,8 +16,7 @@ async function initDb() {
   useCreateDatabase(container.getConnectionUri())
 
   // Run migrations
-  const migrationFolder = resolve(__dirname, '../migrations')
-  await useMigrateDatabase(migrationFolder)
+  await useMigrateDatabase()
 }
 
 beforeAll(async () => {
