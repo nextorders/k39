@@ -8,9 +8,9 @@
     />
 
     <div class="mt-1 flex flex-col gap-1 items-start justify-center">
-      <p class="text-lg/5 font-semibold">
+      <h3 class="text-lg/5 font-semibold">
         {{ user?.name }}
-      </p>
+      </h3>
 
       <div class="flex flex-row gap-1.5 items-center">
         <img src="/img/badge/badge1.gif" class="size-7 border border-accented rounded-sm">
