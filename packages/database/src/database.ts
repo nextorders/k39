@@ -9,13 +9,13 @@ export function useCreateDatabase(databaseURL: string) {
   instance = createConnection(databaseURL)
 }
 
-export async function useMigrateDatabase(migrationFolder: string) {
+export async function useMigrateDatabase() {
   if (!instance) {
     throw new Error('Database is not created')
   }
 
   await migrate(instance, {
-    migrationsFolder: resolve(migrationFolder),
+    migrationsFolder: resolve(__dirname, '../migrations'),
   })
 }
 
