@@ -1,4 +1,4 @@
-import z from 'zod'
+import * as z from 'zod'
 
 const MAX_FILE_SIZE = 10 * 1024 * 1024 // 10MB
 const MIN_DIMENSIONS = { width: 200, height: 200 }
