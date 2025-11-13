@@ -15,6 +15,10 @@ export function isApiError(error: unknown): error is ApiError {
 
   const dataInData = (data as any).data
 
+  if (!dataInData || typeof dataInData !== 'object') {
+    return false
+  }
+
   if (!('code' in dataInData)) {
     return false
   }
