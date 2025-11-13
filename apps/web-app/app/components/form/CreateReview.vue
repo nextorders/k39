@@ -89,6 +89,8 @@
       block
       class="mt-3"
       label="Отправить"
+      :loading="isSubmitting"
+      :disabled="isSubmitting"
     />
 
     <div class="mx-auto max-w-sm text-sm/5 text-muted text-center">
@@ -113,7 +115,11 @@ const { pageId, pageSlug } = defineProps<{ pageId: string, pageSlug: string }>()
 
 const emit = defineEmits(['success', 'submitted'])
 
+const isSubmitting = ref(false)
+
 const { state } = usePageReview()
+
+const toast = useToast()
 
 const overlay = useOverlay()
 const modalPageReviewInstruction = overlay.create(PageReviewInstruction)
@@ -123,6 +129,12 @@ const ratings = computed(() => Array.from({ length: 5 }, (_, i) => i + 1))
 const userStore = useUserStore()
 
 async function onSubmit(event: FormSubmitEvent<CreatePageReviewClientSchema>) {
+  if (isSubmitting.value) {
+    return
+  }
+
+  isSubmitting.value = true
+
   emit('submitted')
 
   try {
@@ -151,6 +163,14 @@ async function onSubmit(event: FormSubmitEvent<CreatePageReviewClientSchema>) {
     await navigateTo(`/${pageSlug}/reviews`)
   } catch (error) {
     console.error(error)
+
+    toast.add({
+      title: 'Ошибка при отправке отзыва',
+      description: error instanceof Error ? error.message : 'Пожалуйста, попробуйте еще раз.',
+      color: 'error',
+    })
+  } finally {
+    isSubmitting.value = false
   }
 }
 </script>

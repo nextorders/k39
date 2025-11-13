@@ -8,6 +8,9 @@ export const createPageReviewClientSchema = z.object({
   pros: z.string().optional(),
   cons: z.string().optional(),
   comment: z.string().optional(),
-  photos: imageSchema.array().max(10).optional(),
+  photos: imageSchema
+    .array()
+    .max(10, { error: 'Можно загрузить максимум 10 фотографий.' })
+    .optional(),
 })
 export type CreatePageReviewClientSchema = z.output<typeof createPageReviewClientSchema>

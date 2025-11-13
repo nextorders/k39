@@ -18,20 +18,22 @@ function formatBytes(bytes: number, decimals = 2) {
 
 export const imageSchema = z
   .instanceof(File, {
-    message: 'Выберите фото.',
+    error: 'Выберите фото.',
   })
   .refine((file) => file.size <= MAX_FILE_SIZE, {
-    message: `Изображение слишком большое. Нужно меньше ${formatBytes(MAX_FILE_SIZE)}.`,
+    error: `Изображение слишком большое. Нужно меньше ${formatBytes(MAX_FILE_SIZE)}.`,
   })
   .refine((file) => ACCEPTED_IMAGE_TYPES.includes(file.type), {
-    message: 'Нужен корректный тип.',
+    error: 'Нужен корректный тип.',
   })
   .refine(
     (file) =>
       new Promise((resolve) => {
         const reader = new FileReader()
+        reader.onerror = () => resolve(false)
         reader.onload = (e) => {
           const img = new HTMLImageElement()
+          img.onerror = () => resolve(false)
           img.onload = () => {
             const meetsDimensions
               = img.width >= MIN_DIMENSIONS.width
@@ -45,6 +47,6 @@ export const imageSchema = z
         reader.readAsDataURL(file)
       }),
     {
-      message: `Недопустимые размеры изображения. Загрузите изображение размером от ${MIN_DIMENSIONS.width}x${MIN_DIMENSIONS.height} до ${MAX_DIMENSIONS.width}x${MAX_DIMENSIONS.height} пикс.`,
+      error: `Недопустимые размеры изображения. Загрузите изображение размером от ${MIN_DIMENSIONS.width}x${MIN_DIMENSIONS.height} до ${MAX_DIMENSIONS.width}x${MAX_DIMENSIONS.height} пикс.`,
     },
   )

@@ -5,9 +5,16 @@
 </template>
 
 <script setup lang="ts">
-const { data: page } = await useAsyncData('legal-privacy-policy', () => {
+const { data: page, error } = await useAsyncData('legal-privacy-policy', () => {
   return queryCollection('legal').path('/legal/privacy-policy').first()
 })
+
+if (!page.value || error.value) {
+  throw createError({
+    statusCode: 404,
+    message: 'Страница не найдена',
+  })
+}
 
 useHead({
   title: 'Политика конфиденциальности',

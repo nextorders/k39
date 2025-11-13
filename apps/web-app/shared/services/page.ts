@@ -8,8 +8,10 @@ export const createPageReviewServerSchema = z.object({
   pros: z.string().optional(),
   cons: z.string().optional(),
   comment: z.string().optional(),
-  photos: z.instanceof(File, {
-    message: 'Выберите фото.',
-  }).array().max(10).optional(),
+  photos: z
+    .instanceof(File, { error: 'Выберите фото.' })
+    .array()
+    .max(10, { error: 'Можно загрузить максимум 10 фотографий.' })
+    .optional(),
 })
 export type CreatePageReviewServerSchema = z.output<typeof createPageReviewServerSchema>
