@@ -167,6 +167,7 @@ async function onSubmit(event: FormSubmitEvent<CreatePageReviewClientSchema>) {
         title: 'Ошибка при отправке отзыва',
         description: error.data.data.message ?? 'Пожалуйста, попробуйте еще раз.',
         color: 'error',
+        icon: 'i-lucide-triangle-alert',
       })
     }
   } finally {
