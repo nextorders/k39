@@ -4,6 +4,7 @@
     :title="title"
     :description="description"
     :ui="{
+      container: 'lg:pb-18',
       wrapper: 'lg:px-8',
       title: 'wrap-break-word',
       description: 'mx-auto max-w-4xl',
@@ -20,24 +21,43 @@
           }"
           class="group-hover:hidden"
         >
-          Скоро! 🎉
+          Уже совсем скоро! 🎉
         </UBadge>
       </div>
     </template>
   </UPageHero>
 
-  <UContainer class="max-w-4xl">
+  <UContainer class="max-w-5xl">
     <AdventCalendar />
   </UContainer>
 
-  <UContainer class="mt-12 max-w-4xl">
-    <UIcon name="fluent-emoji-flat:christmas-tree" class="size-18 mx-auto" />
+  <UContainer class="mt-12 max-w-3xl">
+    <img
+      src="/img/advent/santa-claus-256.gif"
+      alt="Санта"
+      class="size-28 rounded-xl"
+    >
+    <p class="italic">
+      Этот адвент‑календарь поможет вам создать праздничное настроение шаг за шагом. Каждый день — новое задание, идея или маленький подарок, который сделает декабрь особенным.
+    </p>
   </UContainer>
 
-  <UContainer class="max-w-4xl">
-    <div>
-      Этот адвент‑календарь поможет вам создать праздничное настроение шаг за шагом. Каждый день — новое задание, идея или маленький подарок, который сделает декабрь особенным.
-    </div>
+  <UContainer class="mt-20 max-w-3xl">
+    <AdventUserContentBlock />
+  </UContainer>
+  <AdventUserContentLine />
+
+  <UContainer class="mt-20 max-w-3xl">
+    <AdventStoryBlock />
+  </UContainer>
+
+  <UContainer class="mt-20 max-w-3xl">
+    <img
+      src="/img/advent/christmas-tree-256.gif"
+      alt="Елка"
+      class="ml-auto size-28 rounded-xl"
+    >
+    <AdventQuestionsBlock />
   </UContainer>
 </template>
 
