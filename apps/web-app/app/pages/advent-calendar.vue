@@ -67,7 +67,7 @@ const title = 'От декабря к Новому году: адвент‑ка
 const description = '31 день предвкушения праздника: ежедневный адвент‑календарь с заданиями, сюрпризами и вдохновением. Проведите декабрь осознанно — от первого дня до новогодней ночи!'
 
 const { width } = useWindowSize()
-const isMobile = computed(() => width.value < 600)
+const isMobile = computed(() => width.value < 800)
 
 useHead({
   title,
