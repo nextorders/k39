@@ -83,6 +83,15 @@ export const userBadgeTasks = pgTable('user_badge_tasks', {
   }),
 })
 
+export const categories = pgTable('categories', {
+  id: cuid2('id').defaultRandom().primaryKey(),
+  createdAt: timestamp('created_at', { precision: 3, withTimezone: true, mode: 'string' }).notNull().defaultNow(),
+  updatedAt: timestamp('updated_at', { precision: 3, withTimezone: true, mode: 'string' }).notNull().defaultNow(),
+  slug: varchar('slug').notNull(),
+  title: varchar('title').notNull(),
+  description: varchar('description'),
+})
+
 export const pages = pgTable('pages', {
   id: cuid2('id').defaultRandom().primaryKey(),
   createdAt: timestamp('created_at', { precision: 3, withTimezone: true, mode: 'string' }).notNull().defaultNow(),
@@ -106,6 +115,20 @@ export const points = pgTable('points', {
   title: varchar('name').notNull(),
   address: varchar('address').notNull(),
   pageId: cuid2('page_id').notNull().references(() => pages.id, {
+    onDelete: 'cascade',
+    onUpdate: 'cascade',
+  }),
+})
+
+export const pageCategories = pgTable('page_categories', {
+  id: cuid2('id').defaultRandom().primaryKey(),
+  createdAt: timestamp('created_at', { precision: 3, withTimezone: true, mode: 'string' }).notNull().defaultNow(),
+  updatedAt: timestamp('updated_at', { precision: 3, withTimezone: true, mode: 'string' }).notNull().defaultNow(),
+  pageId: cuid2('page_id').notNull().references(() => pages.id, {
+    onDelete: 'cascade',
+    onUpdate: 'cascade',
+  }),
+  categoryId: cuid2('category_id').notNull().references(() => categories.id, {
     onDelete: 'cascade',
     onUpdate: 'cascade',
   }),
@@ -248,9 +271,25 @@ export const userBadgeTaskRelations = relations(userBadgeTasks, ({ one }) => ({
   }),
 }))
 
+export const categoryRelations = relations(categories, ({ many }) => ({
+  pageCategories: many(pageCategories),
+}))
+
 export const pageRelations = relations(pages, ({ many }) => ({
   points: many(points),
   reviews: many(pageReviews),
+  categories: many(pageCategories),
+}))
+
+export const pageCategoryRelations = relations(pageCategories, ({ one }) => ({
+  page: one(pages, {
+    fields: [pageCategories.pageId],
+    references: [pages.id],
+  }),
+  category: one(categories, {
+    fields: [pageCategories.categoryId],
+    references: [categories.id],
+  }),
 }))
 
 export const pageReviewRelations = relations(pageReviews, ({ one, many }) => ({
