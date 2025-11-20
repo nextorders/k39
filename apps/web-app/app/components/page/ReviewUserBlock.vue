@@ -34,7 +34,7 @@
 <script setup lang="ts">
 import type { PageReview } from '@k39/database'
 
-defineProps<{ review: PageReview | undefined, pageSlug: string }>()
+defineProps<{ review: PageReview | undefined | null, pageSlug: string }>()
 
 const userStore = useUserStore()
 </script>

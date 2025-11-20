@@ -13,14 +13,8 @@ export default defineEventHandler(async (event) => {
     const user = await getUserFromSession(event)
 
     const myPageReview = await db.pageReview.findByPageIdAndUserId(pageId, user.id)
-    if (!myPageReview) {
-      throw createError({
-        statusCode: 404,
-        statusMessage: 'Review not found',
-      })
-    }
 
-    return myPageReview
+    return myPageReview ?? null
   } catch (error) {
     throw errorResolver(error)
   }
