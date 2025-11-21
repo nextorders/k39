@@ -1,4 +1,4 @@
-import type { PageReviewModerationRequestStatus, PageReviewStatus, PageReviewVoteType, PhotoVersionFormat, PhotoVersionSize, UserBadgeTaskStatus } from './types/entities'
+import type { PageReviewModerationRequestStatus, PageReviewPhotoType, PageReviewStatus, PageReviewVoteType, PhotoVersionFormat, PhotoVersionSize, UserBadgeTaskStatus } from './types/entities'
 import { cuid2 } from 'drizzle-cuid2/postgres'
 import { relations } from 'drizzle-orm'
 import { boolean, integer, jsonb, numeric, pgTable, text, timestamp, uniqueIndex, varchar } from 'drizzle-orm/pg-core'
@@ -141,9 +141,11 @@ export const pageReviews = pgTable('page_reviews', {
   createdAt: timestamp('created_at', { precision: 3, withTimezone: true, mode: 'string' }).notNull().defaultNow(),
   updatedAt: timestamp('updated_at', { precision: 3, withTimezone: true, mode: 'string' }).notNull().defaultNow(),
   rating: integer('rating').notNull().default(0),
+  privateComment: text('private_comment'),
   comment: text('comment'),
   pros: text('pros'),
   cons: text('cons'),
+  recommends: boolean('recommends').notNull().default(false),
   verified: boolean('verified').notNull().default(false),
   status: varchar('status').notNull().default('draft').$type<PageReviewStatus>(),
   likesCount: integer('likes_count').notNull().default(0),
@@ -180,6 +182,7 @@ export const pageReviewPhotos = pgTable('page_review_photos', {
   id: cuid2('id').defaultRandom().primaryKey(),
   createdAt: timestamp('created_at', { precision: 3, withTimezone: true, mode: 'string' }).notNull().defaultNow(),
   updatedAt: timestamp('updated_at', { precision: 3, withTimezone: true, mode: 'string' }).notNull().defaultNow(),
+  type: varchar('type').notNull().$type<PageReviewPhotoType>(),
   pageReviewId: cuid2('page_review_id').notNull().references(() => pageReviews.id, {
     onDelete: 'cascade',
     onUpdate: 'cascade',

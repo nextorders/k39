@@ -37,12 +37,12 @@
           <UIcon
             v-if="item.completed"
             name="i-lucide-check"
-            class="size-5 text-success"
+            class="shrink-0 size-5 text-success"
           />
           <UIcon
             v-else
             name="i-lucide-circle-dashed"
-            class="size-5 text-muted/25 motion-rotate-loop-180 motion-duration-2000"
+            class="shrink-0 size-5 text-muted/25 motion-rotate-loop-180 motion-duration-2000"
           />
 
           <p class="text-base/5">

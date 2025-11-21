@@ -33,12 +33,23 @@
       </div>
     </div>
 
-    <div class="flex flex-col gap-3.5">
+    <div class="flex flex-col gap-4">
       <div class="flex flex-row gap-2 items-center">
         <RatingStars :rating="review.rating" />
         <p class="text-sm/4 text-muted">
           Оценка {{ review.rating }} из 5
         </p>
+      </div>
+
+      <div class="flex flex-row gap-2 items-center">
+        <UBadge
+          size="lg"
+          variant="outline"
+          :color="review.recommends ? 'success' : 'error'"
+          :icon="review.recommends ? 'i-lucide-thumbs-up' : 'i-lucide-thumbs-down'"
+          :label="review.recommends ? 'Рекомендует' : 'Не рекомендует'"
+          class="px-3.5"
+        />
       </div>
 
       <PageReviewCardSection

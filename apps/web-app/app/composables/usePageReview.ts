@@ -3,10 +3,13 @@ import type { CreatePageReviewClientSchema } from '@k39/types/client'
 function _usePageReview() {
   const state = ref<Partial<CreatePageReviewClientSchema>>({
     rating: undefined,
+    recommends: undefined,
     pros: undefined,
     cons: undefined,
     comment: undefined,
+    privateComment: undefined,
     photos: [],
+    privatePhotos: [],
   })
 
   const list = computed(() => [
@@ -16,14 +19,19 @@ function _usePageReview() {
       weight: 20,
     },
     {
+      label: 'Ваша рекомендация',
+      completed: state.value.recommends !== undefined,
+      weight: 20,
+    },
+    {
       label: 'Указать достоинства',
       completed: state.value.pros !== undefined && state.value.pros !== '',
-      weight: 20,
+      weight: 10,
     },
     {
       label: 'Указать недостатки',
       completed: state.value.cons !== undefined && state.value.cons !== '',
-      weight: 20,
+      weight: 10,
     },
     {
       label: 'Написать развернутый комментарий',
