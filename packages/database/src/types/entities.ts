@@ -4,6 +4,8 @@ export type PageReviewStatus = 'draft' | 'pending' | 'approved' | 'rejected' | '
 
 export type PageReviewVoteType = 'like' | 'dislike'
 
+export type PageReviewPhotoType = 'public' | 'private'
+
 export type PageReviewModerationRequestStatus = 'pending' | 'approved' | 'rejected' | 'hidden'
 
 export type PhotoVersionFormat = 'jpg' | 'webp'

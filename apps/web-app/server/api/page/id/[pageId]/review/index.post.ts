@@ -1,7 +1,7 @@
 import { db } from '@k39/database'
 import { createPageReviewServerSchema } from '@k39/types/server'
 import { createId } from '@paralleldrive/cuid2'
-import { createAndUploadOriginalPhoto, IMAGE_MAX_COUNT_TO_UPLOAD, validatePhoto } from '~~/server/services/photo'
+import { createAndUploadOriginalPhoto, PHOTOS_MAX_COUNT_TO_UPLOAD, PRIVATE_PHOTOS_MAX_COUNT_TO_UPLOAD, validatePhoto } from '~~/server/services/photo'
 
 export default defineEventHandler(async (event) => {
   try {
@@ -33,6 +33,7 @@ export default defineEventHandler(async (event) => {
 
     const fields: Record<string, string> = {}
     const photos: OriginalPhoto[] = []
+    const privatePhotos: OriginalPhoto[] = []
 
     for (const item of formData) {
       if (!item.name) {
@@ -41,8 +42,21 @@ export default defineEventHandler(async (event) => {
       if (item.name === 'photos') {
         const itemValidated = await validatePhoto(item)
 
-        if (itemValidated.ok && photos.length < IMAGE_MAX_COUNT_TO_UPLOAD) {
+        if (itemValidated.ok && photos.length < PHOTOS_MAX_COUNT_TO_UPLOAD) {
           photos.push({
+            ...item,
+            id: createId(),
+            metadata: itemValidated.metadata,
+          })
+        }
+
+        continue
+      }
+      if (item.name === 'privatePhotos') {
+        const itemValidated = await validatePhoto(item)
+
+        if (itemValidated.ok && privatePhotos.length < PRIVATE_PHOTOS_MAX_COUNT_TO_UPLOAD) {
+          privatePhotos.push({
             ...item,
             id: createId(),
             metadata: itemValidated.metadata,
@@ -58,6 +72,7 @@ export default defineEventHandler(async (event) => {
     const parsedFields = {
       ...fields,
       rating: Number(fields.rating),
+      recommends: fields.recommends === 'true',
     }
 
     const data = createPageReviewServerSchema.parse(parsedFields)
@@ -91,11 +106,24 @@ export default defineEventHandler(async (event) => {
         buffer: photo.data,
         metadata: photo.metadata,
       })
+
+      await db.pageReview.createPhoto({
+        type: 'public',
+        pageReviewId: review.id,
+        photoId: photo.id,
+      })
     }
 
-    // Pin photos
-    for (const photo of photos) {
+    // Upload Private Photos
+    for (const photo of privatePhotos) {
+      await createAndUploadOriginalPhoto({
+        id: photo.id,
+        buffer: photo.data,
+        metadata: photo.metadata,
+      })
+
       await db.pageReview.createPhoto({
+        type: 'private',
         pageReviewId: review.id,
         photoId: photo.id,
       })

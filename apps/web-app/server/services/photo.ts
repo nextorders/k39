@@ -3,7 +3,9 @@ import type { Buffer } from 'node:buffer'
 import { db } from '@k39/database'
 import sharp from 'sharp'
 
-export const IMAGE_MAX_COUNT_TO_UPLOAD = 10
+export const PHOTOS_MAX_COUNT_TO_UPLOAD = 10
+export const PRIVATE_PHOTOS_MAX_COUNT_TO_UPLOAD = 5
+
 const IMAGE_MAX_SIZE_BYTES_TO_UPLOAD = 10 * 1024 * 1024 // 10 MB
 const IMAGE_MAX_DIMENSION_TO_UPLOAD = 8000
 const IMAGE_MIN_DIMENSION_TO_UPLOAD = 200

@@ -18,13 +18,28 @@
         <UButton
           variant="soft"
           color="neutral"
-          size="lg"
+          size="md"
           icon="i-lucide-info"
           label="О чем писать?"
           @click="modalPageReviewInstruction.open({ onClick: modalPageReviewInstruction.close })"
         />
       </div>
     </div>
+
+    <UFormField
+      label="Рекомендуете ли другим?"
+      name="recommends"
+      required
+    >
+      <UTabs
+        v-model="selectedRecommends"
+        :items="recommendsItems"
+        :content="false"
+        :color="selectedRecommends === 'yes' ? 'success' : 'error'"
+        size="md"
+        class="w-40"
+      />
+    </UFormField>
 
     <UFormField label="Достоинства" name="pros">
       <UTextarea
@@ -78,6 +93,61 @@
       />
     </UFormField>
 
+    <USeparator icon="fluent-emoji-flat:old-key" class="mt-8" />
+
+    <div class="mb-2 flex flex-row gap-2 justify-between items-center">
+      <h3 class="text-xl/6 font-bold text-center text-warning">
+        Приватная территория
+      </h3>
+
+      <div>
+        <UButton
+          variant="soft"
+          color="warning"
+          size="md"
+          icon="i-lucide-info"
+          label="Подробности"
+          @click="modalPageReviewPrivateInstruction.open({ onClick: modalPageReviewPrivateInstruction.close })"
+        />
+      </div>
+    </div>
+
+    <UFormField
+      label="Скрытый комментарий"
+      hint="Для владельца и администратора"
+      name="privateComment"
+    >
+      <UTextarea
+        v-model="state.privateComment"
+        :rows="2"
+        autoresize
+        size="xl"
+        class="w-full"
+      />
+    </UFormField>
+
+    <UFormField
+      label="Фотографии для валидации"
+      hint="Максимум 5"
+      name="privatePhotos"
+    >
+      <UFileUpload
+        v-model="state.privatePhotos"
+        multiple
+        layout="list"
+        position="inside"
+        accept="image/*"
+        icon="i-lucide-image"
+        label="Выберите или перетащите сюда"
+        description="Формат - JPG, PNG, WEBP или HEIC/HEIF"
+        color="neutral"
+        class="w-full"
+        :ui="{
+          base: 'border border-dashed border-accented',
+        }"
+      />
+    </UFormField>
+
     <UButton
       type="submit"
       variant="solid"
@@ -107,6 +177,7 @@ import type { CreatePageReviewClientSchema } from '@k39/types/client'
 import type { FormSubmitEvent } from '@nuxt/ui'
 import { createPageReviewClientSchema } from '@k39/types/client'
 import PageReviewInstruction from '../modal/PageReviewInstruction.vue'
+import PageReviewPrivateInstruction from '../modal/PageReviewPrivateInstruction.vue'
 
 const { pageId, pageSlug } = defineProps<{ pageId: string, pageSlug: string }>()
 
@@ -116,10 +187,24 @@ const isSubmitting = ref(false)
 
 const { state } = usePageReview()
 
+const recommendsItems = [{
+  label: 'Да',
+  value: 'yes',
+}, {
+  label: 'Нет',
+  value: 'no',
+}]
+const selectedRecommends = ref<'yes' | 'no'>()
+
+watch(selectedRecommends, (value) => {
+  state.value.recommends = value === 'yes'
+})
+
 const toast = useToast()
 
 const overlay = useOverlay()
 const modalPageReviewInstruction = overlay.create(PageReviewInstruction)
+const modalPageReviewPrivateInstruction = overlay.create(PageReviewPrivateInstruction)
 
 const userStore = useUserStore()
 
@@ -139,10 +224,18 @@ async function onSubmit(event: FormSubmitEvent<CreatePageReviewClientSchema>) {
     formData.append('pros', event.data.pros || '')
     formData.append('cons', event.data.cons || '')
     formData.append('comment', event.data.comment || '')
+    formData.append('recommends', event.data.recommends.toString())
+    formData.append('privateComment', event.data.privateComment || '')
 
     if (event.data.photos && event.data.photos.length > 0) {
       event.data.photos.forEach((file) => {
         formData.append('photos', file, file.name)
+      })
+    }
+
+    if (event.data.privatePhotos && event.data.privatePhotos.length > 0) {
+      event.data.privatePhotos.forEach((file) => {
+        formData.append('privatePhotos', file, file.name)
       })
     }
 
